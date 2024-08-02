@@ -1,4 +1,3 @@
-import discord.app_commands
 from discord.ext import commands
 import random
 import requests
@@ -71,6 +70,11 @@ class Fun(commands.Cog):
         except Exception as e:
             await ctx.reply(f"An error accured while parsing the joke: {e}")
             return
+
+    @commands.command()
+    async def source_code(self, ctx):
+        """Get a link to my source code"""
+        await ctx.reply("View my source code here: <https://github.com/KACofficial/KAC-Bot>")
 
 
 async def setup(bot):

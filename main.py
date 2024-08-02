@@ -1,13 +1,11 @@
-# This example requires the 'members' and 'message_content' privileged intents to function.
-
 import discord
 from discord.ext import commands
 import os
 import json
-from utils.utils import init
+from utils.utils import init  # use the function init() from utils/utils.py in this file
 
-# boilerplate junk
-description = "Request movies!"
+# setup the configuration and bot
+description = "the official KillAllChickens discord bot!"
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -19,22 +17,19 @@ with open("config.json") as f:
 loaded_ext = []
 
 
-# end boilerplate junk
-
-
-@bot.event
+@bot.event  # Run this code when the bot is ready to start listining to commands
 async def on_ready():
-    print(f'Logged in as {bot.user} (ID: {bot.user.id})')
-    print('------')
+    print(f'Logged in as {bot.user} (ID: {bot.user.id})')  # print the bots username
+    print('------')  # print a little break to seperate this from debugging stuff
 
 
-async def setup_hook():
+async def setup_hook():  # this function searches the "commands" directory for python files
     for filename in os.listdir('./commands'):
         if filename.endswith('.py'):
             ext_name = filename[:-3]
             try:
                 if ext_name not in loaded_ext:
-                    await bot.load_extension(f'commands.{ext_name}')
+                    await bot.load_extension(f'commands.{ext_name}')  # load the python files in "commands"
                     loaded_ext.append(ext_name)
             except Exception as e:
                 print(f'Failed to load extension {ext_name}: {e}')
@@ -42,14 +37,13 @@ async def setup_hook():
 
 @bot.event
 async def on_message(message):
-    if bot.user.mentioned_in(message):
-        await message.reply(f"Don't mention me! Use `!help` to see a list of valid commands.")
-    await bot.process_commands(message)
+    if bot.user.mentioned_in(message):  # if the bot is mentioned like `@KAC Bot`
+        await message.reply(f"Don't mention me! Use `!help` to see a list of valid commands.")  # reply to the message
+    await bot.process_commands(message)  # continue to process commands
 
 
 init(config["tmdb_key"])
 
-# asyncio.run(setup_hook())
-bot.setup_hook = setup_hook
+bot.setup_hook = setup_hook  # this line runs the setup_hook() function when the bot is ready to load commands
 
-bot.run(config["bot_token"])
+bot.run(config["bot_token"])  # start the bot

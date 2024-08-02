@@ -105,10 +105,8 @@ class Movies(commands.Cog):
     async def search(self, ctx, *args):
         """Search for movies"""
         movie_name = ' '.join(args)
-        print(f"searching for movie '{movie_name}'")
         limit = 10
         results = search_movie(movie_name, limit)
-        print(results)
         embed = discord.Embed(
             title=f"Results for '**{movie_name}**'",
             color=0xff0000

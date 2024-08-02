@@ -27,7 +27,7 @@ def get_movie_poster(movie_id):
     backdrop_path = response.get('poster_path')
 
     if backdrop_path:
-        base_url = 'https://image.tmdb.org/t/p/original'  # You can change 'original' to another size, e.g., 'w500'
+        base_url = 'https://image.tmdb.org/t/p/original'
         banner_url = f"{base_url}{backdrop_path}"
         return banner_url
     else:
