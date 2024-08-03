@@ -98,14 +98,22 @@ class Movies(commands.Cog):
             movie_id = results["results"][0]["id"]
             result = search_movie_id(movie_id)
             title = result.get('title')
+            desc = result.get('overview')
+
             if movie_id in self.movies:
                 await ctx.reply(f"`{title}` has already been requested!")
                 return
-
             else:
                 self.movies.append(movie_id)
-
-            await ctx.reply(f"Request for `{title}` sent successfully")
+            api_resp = requests.post("http://127.0.0.1:3000/add-movie", data={"title": title, "desc": desc})
+            if api_resp.status_code == 200:
+                response_json = api_resp.json()
+                if response_json.get("status") == "success":
+                    await ctx.reply(f"Request for `{title}` sent successfully")
+                else:
+                    await ctx.reply("Movie was requested, but not updated in the web UI :(")
+            else:
+                await ctx.reply("Failed to send request to the web UI")
         else:
             await ctx.reply(f"Multiple results found for '**{movie_name}**'.\n"
                             f"Please use `!search` to see all options and get the exact ID.")
