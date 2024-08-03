@@ -2,30 +2,57 @@ body {
     background-color: #293334;
     color: #d9dda7;
     font-weight: 400;
-    font-family: "Space Mono", monospace;
-    font-style: normal;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #f0e68c; /* Gives a bit of contrast to the heading */
 }
 
 .title {
-    font-weight: 700;
-    font-style: normal;
+    font-weight: 600;
+    font-size: 2rem; /* Slightly increased font size for emphasis */
+    margin-bottom: 10px;
 }
 
 .movie-container {
     border: 1px solid #7ca363;
     background-color: #354142;
-    border-radius: 5px;
+    border-radius: 8px; /* Slightly larger border-radius for a smoother look */
     display: block;
     margin: 20px auto;
-    padding: 10px;
-    width: 40%;
-    box-shadow: 4px 4px 8px #151b1b;
+    padding: 20px;
+    width: 50%; /* Increased width for better readability */
+    max-width: 600px; /* Ensures it doesn't get too wide on larger screens */
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.5); /* Softened shadow for depth */
 }
 
 .desc {
-    font-weight: 200;
-    font-style: normal;
-    margin-left: auto;
-    margin-right: auto;
+    font-weight: 400;
+    font-size: 1.125rem; /* Increased font size for readability */
+    text-align: justify; /* Aligns text for better readability */
+    margin-top: 10px;
+    color: #c7c7c7; /* Lighter color for the description text */
+}
+
+@media (max-width: 768px) {
+    .movie-container {
+        width: 90%; /* Adjusts the width on smaller screens */
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .desc {
+        font-size: 1rem;
+    }
 }
