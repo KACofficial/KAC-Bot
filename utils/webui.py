@@ -1,11 +1,17 @@
 from flask import Flask, render_template, request, jsonify
 import logging
-
 app = Flask(__name__)
 
 app.logger.setLevel(logging.INFO)
 
 movies = []
+
+# Attach null handler to Flask logger
+app.logger.addHandler(logging.NullHandler())
+
+# Disable Werkzeug logging
+werkzeug_logger = logging.getLogger('werkzeug')
+werkzeug_logger.addHandler(logging.NullHandler())
 
 
 @app.route("/")
