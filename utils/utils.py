@@ -12,7 +12,7 @@ def search_movie(title, max_results=10): # search for a movie and return the res
     return {"results": results[:max_results], "count": len(results)}
 
 
-def search_movie_id(id): # get all info about a movie
+def search_movie_id(id): # grab a movies info based on id
     movie = tmdb.Movies(id)
     return movie.info()
     # return {
