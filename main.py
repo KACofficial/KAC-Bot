@@ -3,6 +3,8 @@ from discord.ext import commands
 import os
 import json
 from utils.utils import init  # use the function init() from utils/utils.py in this file
+from utils import webui # import the webui
+import threading
 
 # setup the configuration and bot
 description = "the official KillAllChickens discord bot!"
@@ -42,8 +44,12 @@ async def on_message(message):
     await bot.process_commands(message)  # continue to process commands
 
 
-init(config["tmdb_key"])
+if __name__ == '__main__':  # if statement makes sure that this is ran first
+    webui_thread = threading.Thread(target=webui.run_flask)
+    webui_thread.start()  # create a webui thread
 
-bot.setup_hook = setup_hook  # this line runs the setup_hook() function when the bot is ready to load commands
+    init(config["tmdb_key"])
 
-bot.run(config["bot_token"])  # start the bot
+    bot.setup_hook = setup_hook  # this line runs the setup_hook() function when the bot is ready to load commands
+
+    bot.run(config["bot_token"])  # start the bot
