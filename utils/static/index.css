@@ -1,0 +1,31 @@
+body {
+    background-color: #293334;
+    color: #d9dda7;
+    font-weight: 400;
+    font-family: "Space Mono", monospace;
+    font-style: normal;
+    text-align: center;
+}
+
+.title {
+    font-weight: 700;
+    font-style: normal;
+}
+
+.movie-container {
+    border: 1px solid #7ca363;
+    background-color: #354142;
+    border-radius: 5px;
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    width: 40%;
+    box-shadow: 4px 4px 8px #151b1b;
+}
+
+.desc {
+    font-weight: 200;
+    font-style: normal;
+    margin-left: auto;
+    margin-right: auto;
+}

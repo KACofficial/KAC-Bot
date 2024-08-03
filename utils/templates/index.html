@@ -2,15 +2,20 @@
 <html>
     <head>
         <title>Requested movies</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <ul>
+        <h1>Requested Movies</h1>
+        <!-- <ul> -->
             {% for movie in movies %}
-                <li>
-                    <strong>{{ movie.title }}</strong>
-                    <p>{{ movie.desc }}</p>
-                </li>
+            <div class="movie-container">
+                <div class="title">{{ movie.title }}</div>
+                <div class="desc">{{ movie.desc }}</div>
+            </div>
             {% endfor %}
-        </ul>
+        <!-- </ul> -->
     </body>
 </html>

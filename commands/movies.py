@@ -63,7 +63,7 @@ class Movies(commands.Cog):
         if movie_name == "":
             await ctx.reply("A movie name or id is required!")
             return
-        
+
         # Check if the input is numeric
         if movie_name.isdigit():  # if it is a number(as in a movies id)
             # Treat the input as a movie ID

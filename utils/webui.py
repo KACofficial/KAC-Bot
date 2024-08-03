@@ -28,6 +28,5 @@ def add_movie():
         return jsonify({"status": "success"}), 200
     return jsonify({"status": "failure"}), 400
 
-
 def run_flask():
     app.run(port=3000)
