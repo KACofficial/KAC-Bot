@@ -5,14 +5,14 @@ def init(api_key):
     tmdb.API_KEY = api_key
 
 
-def search_movie(title, max_results=10):
+def search_movie(title, max_results=10): # search for a movie and return the results and amount of results
     search = tmdb.Search()
     response = search.movie(query=title)
     results = response.get('results', [])
     return {"results": results[:max_results], "count": len(results)}
 
 
-def search_movie_id(id):
+def search_movie_id(id): # get all info about a movie
     movie = tmdb.Movies(id)
     return movie.info()
     # return {
@@ -21,7 +21,7 @@ def search_movie_id(id):
     # }
 
 
-def get_movie_poster(movie_id):
+def get_movie_poster(movie_id): # get the movies poster
     movie = tmdb.Movies(movie_id)
     response = movie.info()
     backdrop_path = response.get('poster_path')
@@ -34,7 +34,7 @@ def get_movie_poster(movie_id):
         return None
 
 
-def get_movie_banner(movie_id):
+def get_movie_banner(movie_id): # get the movies banner
     movie = tmdb.Movies(movie_id)
     response = movie.info()
     backdrop_path = response.get('backdrop_path')

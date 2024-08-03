@@ -12,7 +12,7 @@ class Movies(commands.Cog):
 
     @commands.command()
     @commands.has_any_role("Admin", "Owner", "Moderator")
-    async def list_movies(self, ctx):
+    async def list_movies(self, ctx): # list the currently requested movies. in self.movies
         """List requested movies(mods+ only)"""
         embed = discord.Embed(
             title=f"Requested movies",
@@ -29,7 +29,7 @@ class Movies(commands.Cog):
 
     @commands.command()
     @commands.has_any_role("Admin", "Owner", "Moderator")
-    async def random_movie(self, ctx):
+    async def random_movie(self, ctx): # select a random movie from self.movies
         """Select a random movie from requests(mod+ only)"""
         if len(self.movies) <= 0:
             await ctx.reply("There are no movies to choose from")
@@ -56,7 +56,7 @@ class Movies(commands.Cog):
         # await ctx.send(embed=embed)
 
     @commands.command()
-    async def request(self, ctx, *args):
+    async def request(self, ctx, *args): # request a movie, with id or name
         """Request a movie to be played"""
         movie_name = ' '.join(args).strip()
 
@@ -102,7 +102,7 @@ class Movies(commands.Cog):
                             f"Please use `!search` to see all options and get the exact ID.")
 
     @commands.command()
-    async def search(self, ctx, *args):
+    async def search(self, ctx, *args): # search for movies by name
         """Search for movies"""
         movie_name = ' '.join(args)
         limit = 10
@@ -124,7 +124,7 @@ class Movies(commands.Cog):
         await ctx.reply(embed=embed)
 
     @commands.command()
-    async def movie_info(self, ctx, *args):
+    async def movie_info(self, ctx, *args): # get info about a specific movie
         """Get information about a movie"""
         movie_name = ' '.join(args).strip()
         info_embed = discord.Embed()
