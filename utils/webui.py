@@ -3,7 +3,7 @@ import logging
 
 app = Flask(__name__)
 
-app.logger.setLevel(logging.INFOgit)
+app.logger.setLevel(logging.INFO)
 
 movies = []
 
@@ -35,7 +35,7 @@ def reset_requests():
     try:
         movies.clear()
         return jsonify({"status": "success"}), 200
-    except:
+    except Exception:
         return jsonify({"status": "failure"}), 400
 
 
