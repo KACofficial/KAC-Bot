@@ -53,3 +53,4 @@ if __name__ == '__main__':  # if statement makes sure that this is ran first
     bot.setup_hook = setup_hook  # this line runs the setup_hook() function when the bot is ready to load commands
 
     bot.run(config["bot_token"])  # start the bot
+    webui_thread.join()
