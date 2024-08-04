@@ -7,6 +7,7 @@ import requests
 
 
 class Movies(commands.Cog):
+    """Commands for requesting and viewing movies"""
     def __init__(self, bot):
         self.bot = bot
         self.movies = []

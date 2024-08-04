@@ -3,6 +3,7 @@ import discord
 
 
 class Moderation(commands.Cog):
+    """Commands for neckbeards"""
     def __init__(self, bot):
         self.bot = bot
 
