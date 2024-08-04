@@ -28,5 +28,14 @@ def add_movie():
         return jsonify({"status": "success"}), 200
     return jsonify({"status": "failure"}), 400
 
+
+@app.route("/reset-requests", methods=["GET"])
+def reset_requests():
+    try:
+        movies.clear()
+        return jsonify({"status": "success"}), 200
+    except:
+        return jsonify({"status": "failure"}), 400
+
 def run_flask():
     app.run(port=3000)

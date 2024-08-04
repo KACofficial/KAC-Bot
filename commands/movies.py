@@ -195,6 +195,17 @@ class Movies(commands.Cog):
             await ctx.reply(f"Multiple results found for '**{movie_name}**'.\n"
                             f"Please use `!search` to see all options and get the exact ID.")
 
+    @commands.command()
+    @commands.has_any_role("Admin", "Owner", "Moderator")
+    async def reset_requests(self, ctx):
+        """Reset requests"""
+        self.movies = []
+        resp = requests.get("http://127.0.0.1:3000/reset-requests")
+        if resp.status_code == 200 and resp.json().get("status") == "success":
+            await ctx.reply("Requests reset")
+        else:
+            await ctx.reply("Failed to send requests: " + resp.text)
+
 
 async def setup(bot):
     await bot.add_cog(Movies(bot))
