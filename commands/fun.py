@@ -5,6 +5,7 @@ from time import sleep
 
 
 class Fun(commands.Cog):
+    """\"Fun\" commands"""
     def __init__(self, bot):
         self.bot = bot
 
@@ -70,6 +71,19 @@ class Fun(commands.Cog):
         except Exception as e:
             await ctx.reply(f"An error accured while parsing the joke: {e}")
             return
+        
+    @commands.command(name="quote")  # the command will be !quote
+    async def random_quote(self, ctx):  # returns a random quote
+        """Get a random quote"""
+        try:
+            api_url = "https://api.quotable.io/random"
+            response = requests.get(api_url)
+            quote_data = response.json()
+        except Exception as e:
+            await ctx.reply(f"An error accured while grabbing the quote: {e}")
+            return
+        await ctx.reply(f"\"{quote_data['content']}\" - *{quote_data['author']}*")
+
 
     @commands.command()
     async def source_code(self, ctx):  # provides a link to the github page
