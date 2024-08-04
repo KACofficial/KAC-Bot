@@ -1,7 +1,9 @@
-from discord.ext import commands
 import random
-import requests
+from typing import Optional
 from time import sleep
+
+import requests
+from discord.ext import commands
 
 
 class Fun(commands.Cog):
@@ -20,10 +22,9 @@ class Fun(commands.Cog):
         await ctx.reply(random.choice(["Heads!", "Tails!"]))
 
     @commands.command(name="8ball")
-    async def eight_ball(self, ctx, *args):  # ask the 8ball a question to answer
+    async def eight_ball(self, ctx: commands.Context, *, question: Optional[str]):  # ask the 8ball a question to answer
         """Ask the 8ball a question"""
-        question = " ".join(args).strip()
-        if question == "":  # if there is no question provided
+        if question is None:  # if there is no question provided
             await ctx.reply("A question is required!")
             return
         responses = [  # a list of responses the 8ball can give
@@ -52,7 +53,7 @@ class Fun(commands.Cog):
         await ctx.reply(f"I respond to `{question}` with, `{answer}`")  # reply with an answer from the 8ball
 
     @commands.command()
-    async def joke(self, ctx):  # returns a joke
+    async def joke(self, ctx: commands.Context):  # returns a joke
         """Say a joke(can be offensive)"""
         try:
             api_url = "https://v2.jokeapi.dev/joke/Any"  # the api for jokes
@@ -73,7 +74,7 @@ class Fun(commands.Cog):
             return
         
     @commands.command(name="quote")  # the command will be !quote
-    async def random_quote(self, ctx):  # returns a random quote
+    async def random_quote(self, ctx: commands.Context):  # returns a random quote
         """Get a random quote"""
         try:
             api_url = "https://api.quotable.io/random"
@@ -86,7 +87,7 @@ class Fun(commands.Cog):
 
 
     @commands.command()
-    async def source_code(self, ctx):  # provides a link to the github page
+    async def source_code(self, ctx: commands.Context):  # provides a link to the github page
         """Get a link to my source code"""
         await ctx.reply("View my source code here: <https://github.com/KACofficial/KAC-Bot>")
 
