@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import logging
+
 app = Flask(__name__)
 
-app.logger.setLevel(logging.INFO)
+app.logger.setLevel(logging.INFOgit)
 
 movies = []
 
@@ -36,6 +37,7 @@ def reset_requests():
         return jsonify({"status": "success"}), 200
     except:
         return jsonify({"status": "failure"}), 400
+
 
 def run_flask():
     app.run(port=3000)
