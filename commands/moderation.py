@@ -9,9 +9,8 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
-    async def kick(self, ctx, member: discord.Member, *args):
+    async def kick(self, ctx: commands.Context, member: discord.Member, *, reason: str = "No reason provided"):
         """Kick a user from the server"""
-        reason = " ".join(args) if args else "No reason provided"
         try:
             # Attempt to send a DM to the user
             try:
