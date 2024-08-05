@@ -85,11 +85,26 @@ class Fun(commands.Cog):
             return
         await ctx.reply(f"\"{quote_data['content']}\" - *{quote_data['author']}*")
 
-
     @commands.command()
     async def source_code(self, ctx: commands.Context):  # provides a link to the github page
         """Get a link to my source code"""
         await ctx.reply("View my source code here: <https://github.com/KACofficial/KAC-Bot>")
+
+    @commands.command()
+    async def dice(self, ctx, die: str):
+        """Roll a die, use NdN format"""
+        try:
+            count, sides = map(int, die.split("d"))
+        except ValueError:
+            await ctx.reply("Invalid format! Use `NdN` format, ex. `1d6` for 1 6-sided die.")
+            return
+
+        msg = str(random.randint(1, sides))
+        if count > 1:
+            for _ in range(count - 1):
+                msg += "\n" + str(random.randint(1, sides))
+
+        await ctx.reply(msg)
 
 
 async def setup(bot):
