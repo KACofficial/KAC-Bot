@@ -89,7 +89,7 @@ class Movies(commands.Cog):
                 existing_movies_resp = requests.get("http://localhost:3000/get-movies")
                 existing_movies_json = existing_movies_resp.json()
                 existing_movie_ids = [m["id"] for m in existing_movies_json["movies"]]
-                if movie_id in existing_movie_ids:
+                if str(movie_id) in existing_movie_ids:
                     await ctx.reply(f"`{title}` has already been requested!")
                     return
                 else:
