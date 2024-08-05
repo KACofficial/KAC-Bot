@@ -3,7 +3,7 @@ from discord.ext import commands
 import os
 import json
 from utils.utils import init  # use the function init() from utils/utils.py in this file
-from utils import webui # import the webui
+from utils.webui import setup_global_api_key, run_flask # import the webui
 import threading
 
 # setup the configuration and bot
@@ -45,7 +45,8 @@ async def on_message(message):
 
 
 if __name__ == '__main__':  # if statement makes sure that this is ran first
-    webui_thread = threading.Thread(target=webui.run_flask)
+    setup_global_api_key(config["webui_key"])
+    webui_thread = threading.Thread(target=run_flask)
     webui_thread.start()  # create a webui thread
 
     init(config["tmdb_key"])
