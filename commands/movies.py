@@ -51,15 +51,14 @@ class Movies(commands.Cog):
             await ctx.reply(f"There is only one movie, so I guess I'll pick...")
         else:  # anything else
             await ctx.reply(f"Out of {movies["count"]} movies, I choose..")
-        chosen_movie = random.choice(movies["movies"])
         movie = random.choice(movies["movies"])
         embed = discord.Embed(
             title=movie["title"],
             description=movie["desc"],
             color=0xff0000
         )
-        poster = get_movie_poster(chosen_movie["id"])  # get the movies poster
-        banner = get_movie_banner(chosen_movie["id"])  # get the movies banner
+        poster = get_movie_poster(movie["id"])  # get the movies poster
+        banner = get_movie_banner(movie["id"])  # get the movies banner
 
         embed.set_image(url=banner)  # set the image to the movies banner
         embed.set_thumbnail(url=poster)  # set the thumbnail to the movie poster
