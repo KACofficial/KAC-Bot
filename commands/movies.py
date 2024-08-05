@@ -86,7 +86,10 @@ class Movies(commands.Cog):
             if result.get('title'):
                 title = result['title']
                 desc = result.get("overview", "No description")
-                if movie_id in [movie["id"] for movie in requests.get("http://localhost:3000/get-movies").json()["movies"]]:
+                existing_movies_resp = requests.get("http://localhost:3000/get-movies")
+                existing_movies_json = existing_movies_resp.json()
+                existing_movie_ids = [m["id"] for m in existing_movies_json["movies"]]
+                if movie_id in existing_movie_ids:
                     await ctx.reply(f"`{title}` has already been requested!")
                     return
                 else:
@@ -120,8 +123,10 @@ class Movies(commands.Cog):
             result = search_movie_id(movie_id)
             title = result.get('title')
             desc = result.get('overview')
-
-            if movie_id in [movie["id"] for movie in requests.get("http://localhost:3000/get-movies").json()["movies"]]:
+            existing_movies_resp = requests.get("http://localhost:3000/get-movies")
+            existing_movies_json = existing_movies_resp.json()
+            existing_movie_ids = [m["id"] for m in existing_movies_json["movies"]]
+            if str(movie_id) in existing_movie_ids:
                 await ctx.reply(f"`{title}` has already been requested!")
                 return
             else:
