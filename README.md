@@ -28,7 +28,7 @@ I haven't used windows in years.
   "webui_key": "<A_KEY_FOR_THE_WEBUI>"
 }
 ```
-- `webui_key` is a secret key to be able to remove and manipulate movies, keep it secure,  
+- `webui_key` is a custom secret key to be able to remove and manipulate movies, keep it secure,  
   - I recommend you generate one here: [lastpass.com/features/password-generator](https://www.lastpass.com/features/password-generator)
 
 ### Then you should be good to run it.
