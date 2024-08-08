@@ -5,6 +5,7 @@ from time import sleep
 import requests
 from discord.ext import commands
 
+from utils.rps_utils import RockPaperScissors
 
 class Fun(commands.Cog):
     """\"Fun\" commands"""
@@ -107,25 +108,13 @@ class Fun(commands.Cog):
         await ctx.reply(msg)
 
     @commands.command()
-    async def rps(self, ctx, choice: str=None):
+    async def rps(self, ctx: commands.Context):
         """Play rock paper scissors against the bot"""
-        if choice is None:
-            await ctx.reply("A choice is required! Use either rock, paper, or scissors(can be shortened to r, p, or s)")
-            return
-        if choice not in ["r", "p", "s", "rock", "paper", "scissors"]:
-            await ctx.reply("Invalid option! Use either rock, paper, or scissors(can be shortened to r, p, or s)")
-            return
-        bot_choice = random.choice(["rock", "paper", "scissors"])
-        if bot_choice == "rock" and choice in ["s", "scissors"]:
-            await ctx.reply(f"I chose rock, I win!")
-        elif bot_choice == "paper" and choice in ["r", "rock"]:
-            await ctx.reply(f"I chose paper, I win!")
-        elif bot_choice == "scissors" and choice in ["p", "paper"]:
-            await ctx.reply(f"I chose scissors, I win!")
-        elif bot_choice[0] == choice or bot_choice == choice:
-            await ctx.reply(f"I chose {bot_choice}, it's a tie.")
-        else:
-            await ctx.reply(f"I chose {bot_choice}, You win!")
+
+        view = RockPaperScissors(ctx)
+
+        # Send an message with the view attached to it
+        view.message = await ctx.send(f"{ctx.author.mention}\nChoose an option by using the buttons below!", view=view)
 
 
 async def setup(bot):
