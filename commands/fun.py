@@ -121,7 +121,7 @@ class Fun(commands.Cog):
         elif bot_choice == "paper" and choice in ["r", "rock"]:
             await ctx.reply(f"I chose paper, I win!")
         elif bot_choice == "scissors" and choice in ["p", "paper"]:
-            await ctx.reply(f"I chose paper, I win!")
+            await ctx.reply(f"I chose scissors, I win!")
         elif bot_choice[0] == choice or bot_choice == choice:
             await ctx.reply(f"I chose {bot_choice}, it's a tie.")
         else:
