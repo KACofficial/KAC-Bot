@@ -90,7 +90,7 @@ class Fun(commands.Cog):
     @commands.command()
     async def source_code(self, ctx: commands.Context):  # provides a link to the github page
         """Get a link to my source code"""
-        await ctx.reply("View my source code here: <https://github.com/KACofficial/KAC-Bot>")
+        await ctx.reply("View my source code here: [KAC-Bot](https://github.com/KACofficial/KAC-Bot)")
 
     @commands.command()
     async def dice(self, ctx, die: str):
