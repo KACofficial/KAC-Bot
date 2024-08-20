@@ -4,13 +4,16 @@ from time import sleep
 
 import requests
 from discord.ext import commands
+import discord
 
 from utils.rps_utils import RockPaperScissors
+from utils.config import get_apod_key
 
 class Fun(commands.Cog):
     """\"Fun\" commands"""
     def __init__(self, bot):
         self.bot = bot
+        self.apod_key = get_apod_key()
 
     @commands.command()
     async def ping(self, ctx):  # replies with pong
@@ -115,6 +118,37 @@ class Fun(commands.Cog):
 
         # Send an message with the view attached to it
         view.message = await ctx.send(f"{ctx.author.mention}\nChoose an option by using the buttons below!", view=view)
+
+    @commands.command()
+    async def apod(self, ctx: commands.Context):
+        """Astronomy Picture of the Day"""
+        url = f"https://api.nasa.gov/planetary/apod?api_key={self.apod_key}"
+
+        response = requests.get(url)
+        data = response.json()
+        try:
+            error = data["error"]
+            await ctx.reply(embed=discord.Embed(title=error["code"], description=error["message"]))
+            return
+        except KeyError:
+            pass
+        content_type = data["media_type"]
+        embed: discord.Embed = discord.Embed(
+            title=f"{data['title']}",
+            description=data["explanation"],
+        )
+        embed.set_footer(text=f"{data['date']} | {data['media_type'].capitalize()}")
+        if content_type == "video":
+            video_id = data['url'].split("/embed/")[1].split("?")[0]
+            embed.description += f"\n\n[Watch Here!]({data['url']})"
+            embed.set_image(url=f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg")
+        elif content_type == "image":
+            embed.description += f"\n\n[HD Image]({data['hdurl']})"
+            embed.set_thumbnail(url=data["url"])
+            embed.set_image(url=data["url"])
+        
+        await ctx.reply(embed=embed)
+            
 
 
 async def setup(bot):
