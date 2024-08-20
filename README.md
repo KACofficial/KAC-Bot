@@ -25,11 +25,14 @@ I haven't used windows in years.
 {
   "bot_token": "<YOUR_DISCORD_BOTS_TOKEN>",
   "tmdb_key": "<YOUR_TMDB_API_KEY>",
+  "apod_key": "<YOUR_NASA_API_KEY>",
   "webui_key": "<A_KEY_FOR_THE_WEBUI>"
 }
 ```
 - `webui_key` is a custom secret key to be able to remove and manipulate movies, keep it secure,  
-  - I recommend you generate one here: [lastpass.com/features/password-generator](https://www.lastpass.com/features/password-generator)
+  - I recommend you generate one: [lastpass.com/features/password-generator](https://www.lastpass.com/features/password-generator)
+- `apod_key` is a key to access nasa's astronomy picture of the day api
+  - get one for free here: [api.nasa.gov](https://api.nasa.gov/)
 
 ### Then you should be good to run it.
 - `python3 main.py`
