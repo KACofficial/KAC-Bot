@@ -3,7 +3,8 @@ from discord.ext import commands
 import os
 import json
 from utils.utils import init  # use the function init() from utils/utils.py in this file
-from utils.webui import setup_global_api_key, run_flask # import the webui
+from utils.webui import setup_global_api_key, run_flask # import the webui's core functions
+from utils.help_command import CustomHelpCommand
 import threading
 
 # setup the configuration and bot
@@ -11,7 +12,9 @@ description = "the official KillAllChickens discord bot!"
 intents = discord.Intents.default()
 intents.message_content = True
 
-bot = commands.Bot(command_prefix='!', description=description, intents=intents)
+activity = discord.Game(name=f"Kill The Chickens!")
+
+bot = commands.Bot(command_prefix='!', description=description, intents=intents, activity=activity, help_command=CustomHelpCommand())
 
 with open("config.json") as f:
     config = json.load(f)
