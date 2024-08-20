@@ -12,7 +12,7 @@ description = "the official KillAllChickens discord bot!"
 intents = discord.Intents.default()
 intents.message_content = True
 
-activity = discord.Game(name=f"Kill The Chickens!")
+activity = discord.Activity(type=discord.ActivityType.watching, name="CKY2K | !help")
 
 bot = commands.Bot(command_prefix='!', description=description, intents=intents, activity=activity, help_command=CustomHelpCommand())
 
@@ -41,11 +41,23 @@ async def setup_hook():  # this function searches the "commands" directory for p
 
 
 @bot.event
-async def on_message(message):
+async def on_message(message: discord.Message):
     if bot.user.mentioned_in(message):  # if the bot is mentioned like `@KAC Bot`
         await message.reply(f"Don't mention me! Use `!help` to see a list of valid commands.")  # reply to the message
-    await bot.process_commands(message)  # continue to process commands
+        return
+    
+    await bot.process_commands(message)
 
+# @bot.event
+# async def on_command_error(ctx: commands.Context, error):
+#     command = ctx.message.content.split(" ")[0]
+#     if isinstance(error, commands.CommandNotFound):
+#         await ctx.reply(f"Command `{command}` not found. Use `!help` to get a list of commands.")
+#     elif isinstance(error, commands.MissingAnyRole):
+#         await ctx.reply(f"You do not have permission to use the `{command}` command.")
+#     elif isinstance(error, commands.NoPrivateMessage):
+#         await ctx.reply(f"This command cannot be used in private messages.")
+#     print(error)
 
 if __name__ == '__main__':  # if statement makes sure that this is ran first
     setup_global_api_key(config["webui_key"])
