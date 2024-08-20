@@ -1,5 +1,7 @@
 from discord.ext import commands
 import discord
+
+
 import sys
 from asyncio import TimeoutError
 
@@ -31,6 +33,7 @@ class Moderation(commands.Cog):
             await ctx.reply(f"An error occurred: {e}")
         
     @commands.command()
+    @commands.guild_only()
     async def kill_bot(self, ctx: commands.Context):
         """Kill the bot (owner only)"""
         if any(role.name == "Owner" for role in ctx.author.roles):
