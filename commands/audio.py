@@ -47,7 +47,8 @@ class Music(commands.Cog):
         if voice_client.is_playing():
             voice_client.stop()
 
-        audio_source = discord.FFmpegPCMAudio(url_to_audio)
+        audio_source = discord.PCMVolumeTransformer(
+            discord.FFmpegPCMAudio(url_to_audio))
         voice_client.play(audio_source, after=lambda e: print(
             f"Player error: {e}") if e else None)
 
@@ -57,6 +58,7 @@ class Music(commands.Cog):
 
     @commands.command()
     async def stop(self, ctx: commands.Context):
+        """Stop the audio source"""
         voice_client = ctx.voice_client
 
         if not voice_client:
@@ -107,13 +109,31 @@ class Music(commands.Cog):
             info_dict = ydl.extract_info(url, download=False)
             audio_url = info_dict['url']
 
-        audio_source = discord.FFmpegPCMAudio(audio_url)
+        audio_source = discord.PCMVolumeTransformer(
+            discord.FFmpegPCMAudio(audio_url))
         voice_client.play(audio_source, after=lambda e: print(
             f"Player error: {e}") if e else None)
 
         await ctx.reply(f"Now playing: *{info_dict['title']}*")
 
         await self.bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=info_dict['title']))
+
+    @commands.command()
+    async def volume(self, ctx: commands.Context, volume: int):
+        """Change the player's volume"""
+
+        if volume < 0 or volume > 100:
+            await ctx.reply("Please enter a value between 0 and 100!")
+            return
+
+        voice_client = ctx.voice_client
+
+        if not voice_client:
+            await ctx.reply("I'm not in a voice channel!")
+            return
+
+        voice_client.source.volume = volume / 100
+        await ctx.reply(f"Changed volume to {volume}%")
 
 
 async def setup(bot):
