@@ -1,10 +1,6 @@
 from discord.ext import commands
 import discord
 
-
-import sys
-from asyncio import TimeoutError
-
 class Moderation(commands.Cog):
     """Commands for neckbeards"""
     def __init__(self, bot):
