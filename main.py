@@ -9,8 +9,8 @@ import threading
 
 # setup the configuration and bot
 description = "the official KillAllChickens discord bot!"
-intents = discord.Intents.default()
-intents.message_content = True
+intents = discord.Intents.all()
+#intents.message_content = True
 
 activity = discord.Activity(type=discord.ActivityType.watching, name="CKY2K | !help")
 
@@ -39,7 +39,6 @@ async def setup_hook():  # this function searches the "commands" directory for p
             except Exception as e:
                 print(f'Failed to load extension {ext_name}: {e}')
 
-
 @bot.event
 async def on_message(message: discord.Message):
     if bot.user.mentioned_in(message):  # if the bot is mentioned like `@KAC Bot`
@@ -48,16 +47,18 @@ async def on_message(message: discord.Message):
     
     await bot.process_commands(message)
 
-# @bot.event
-# async def on_command_error(ctx: commands.Context, error):
-#     command = ctx.message.content.split(" ")[0]
-#     if isinstance(error, commands.CommandNotFound):
-#         await ctx.reply(f"Command `{command}` not found. Use `!help` to get a list of commands.")
-#     elif isinstance(error, commands.MissingAnyRole):
-#         await ctx.reply(f"You do not have permission to use the `{command}` command.")
-#     elif isinstance(error, commands.NoPrivateMessage):
-#         await ctx.reply(f"This command cannot be used in private messages.")
-#     print(error)
+@bot.event
+async def on_command_error(ctx: commands.Context, error):
+    """This runs on command errors"""
+    command = ctx.message.content.split(" ")[0]
+    if isinstance(error, commands.CommandNotFound): # is the error is a command not found error
+        await ctx.reply(f"Command `{command}` not found. Use `!help` to get a list of commands.")
+    elif isinstance(error, commands.MissingAnyRole): # is the error is a missing any role error
+        await ctx.reply(f"You do not have permission to use the `{command}` command.")
+    elif isinstance(error, commands.NoPrivateMessage): # is the error is a no private message error
+        await ctx.reply("This command cannot be used in private messages.")
+    else:
+        raise error
 
 if __name__ == '__main__':  # if statement makes sure that this is ran first
     setup_global_api_key(config["webui_key"])
@@ -66,7 +67,7 @@ if __name__ == '__main__':  # if statement makes sure that this is ran first
 
     init(config["tmdb_key"])
 
-    bot.setup_hook = setup_hook  # this line runs the setup_hook() function when the bot is ready to load commands
+    bot.setup_hook = setup_hook # this line runs the setup_hook() function when the bot is ready to load commands
 
     bot.run(config["bot_token"])  # start the bot
     webui_thread.join()
