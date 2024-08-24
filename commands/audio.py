@@ -134,6 +134,18 @@ class Music(commands.Cog):
 
         voice_client.source.volume = volume / 100
         await ctx.reply(f"Changed volume to {volume}%")
+    
+    @ytp.before_invoke
+    @play_raw.before_invoke
+    async def ensure_voice(self, ctx):
+        if ctx.voice_client is None:
+            if ctx.author.voice:
+                await ctx.author.voice.channel.connect()
+            else:
+                await ctx.send("You are not connected to a voice channel.")
+                raise commands.CommandError("Author not connected to a voice channel.")
+        elif ctx.voice_client.is_playing():
+            ctx.voice_client.stop()
 
 
 async def setup(bot):
