@@ -148,6 +148,13 @@ class Fun(commands.Cog):
             embed.set_image(url=data["url"])
         
         await ctx.reply(embed=embed)
+    
+    @commands.command()
+    async def fun_fact(self, ctx: commands.Context):
+        """Get a random fun fact"""
+        response = requests.get("https://uselessfacts.jsph.pl/api/v2/facts/random")
+        data = response.json()
+        await ctx.reply(data["text"])
             
 
 

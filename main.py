@@ -10,11 +10,12 @@ import threading
 # setup the configuration and bot
 description = "the official KillAllChickens discord bot!"
 intents = discord.Intents.all()
+
 #intents.message_content = True
 
-activity = discord.Activity(type=discord.ActivityType.watching, name="CKY2K | !help")
+activity = discord.Activity(type=discord.ActivityType.listening, name="SRV | !help")
 
-bot = commands.Bot(command_prefix='!', description=description, intents=intents, activity=activity, help_command=CustomHelpCommand())
+bot = commands.Bot(command_prefix='!', description=description, intents=intents, activity=activity, help_command=CustomHelpCommand()) # commands.Bot(command_prefix='!', description=description, intents=intents, activity=activity, help_command=CustomHelpCommand())
 
 with open("config.json") as f:
     config = json.load(f)
